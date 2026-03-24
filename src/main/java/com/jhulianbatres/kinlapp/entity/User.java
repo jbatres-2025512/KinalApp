@@ -2,14 +2,16 @@ package com.jhulianbatres.kinlapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
-@Table (name = "User")
+@Table (name = "Users")
 public class User {
 
     @Id
     @Column (name="user_code")
-    private String userCode;
+    private int userCode;
 
     @Column
     private String userName;
@@ -26,18 +28,17 @@ public class User {
     @Column
     private String userState;
 
-    @OneToMany
-    @JoinColumn(name = "fk_userCode")
-    private User fk_userCode;
+    @OneToMany(mappedBy = "codeUser",cascade = CascadeType.ALL)
+    private List<User> sales;
 
     public User() {
     }
 
-    public String getUserCode() {
+    public int getUserCode() {
         return userCode;
     }
 
-    public void setUserCode(String userCode) {
+    public void setUserCode(int userCode) {
         this.userCode = userCode;
     }
 
@@ -81,11 +82,11 @@ public class User {
         this.userState = userState;
     }
 
-    public User getFk_userCode() {
-        return fk_userCode;
+    public List<User> getSales() {
+        return sales;
     }
 
-    public void setFk_userCode(User fk_userCode) {
-        this.fk_userCode = fk_userCode;
+    public void setSales(List<User> sales) {
+        this.sales = sales;
     }
 }

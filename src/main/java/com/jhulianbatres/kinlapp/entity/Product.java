@@ -10,7 +10,7 @@ public class Product {
 
     @Id
     @Column(name = "product_code")
-    private String productCode;
+    private int productCode;
 
     @Column
     private String productName;
@@ -24,18 +24,18 @@ public class Product {
     @Column
     private int productState;
 
-    @OneToMany(mappedBy = "codeProduct",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productCode",cascade = CascadeType.ALL)
     private List<Product> saleDetail;
 
 
     public Product() {
     }
 
-    public String getProductCode() {
+    public int getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) {
+    public void setProductCode(int productCode) {
         this.productCode = productCode;
     }
 

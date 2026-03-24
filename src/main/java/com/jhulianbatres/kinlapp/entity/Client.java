@@ -1,9 +1,8 @@
 package com.jhulianbatres.kinlapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table (name = "clients")
@@ -12,24 +11,23 @@ public class Client {
     @Id
     @Column (name = "dpi_client")
     private String DPIClient;
+
     @Column
     private String nameClient;
+
     @Column
     private String lastNameClient;
+
     @Column
     private String address;
+
     @Column
     private Integer state;
 
-    public Client() {
-    }
+    @OneToMany(mappedBy = "DPIClient", cascade = CascadeType.ALL)
+    private List<Sale> sale;
 
-    public Client(String DPIClient, String nameClient, String lastNameClient, String addressClient, Integer clientState) {
-        this.DPIClient = DPIClient;
-        this.nameClient = nameClient;
-        this.lastNameClient = lastNameClient;
-        this.address = addressClient;
-        this.state = clientState;
+    public Client() {
     }
 
     public String getDPIClient() {
@@ -72,6 +70,11 @@ public class Client {
         this.state = state;
     }
 
+    public List<Sale> getSale() {
+        return sale;
+    }
 
-
+    public void setSale(List<Sale> sale) {
+        this.sale = sale;
+    }
 }
