@@ -2,6 +2,7 @@ package com.jhulianbatres.kinlapp.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Product {
     private String productName;
 
     @Column
-    private float price;
+    private BigDecimal price;
 
     @Column
     private int stock;
@@ -47,11 +48,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

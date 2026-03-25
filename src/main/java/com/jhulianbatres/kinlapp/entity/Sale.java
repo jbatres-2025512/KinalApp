@@ -2,6 +2,7 @@ package com.jhulianbatres.kinlapp.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Sale {
     private LocalDateTime saleDate;
 
     @Column
-    private double total;
+    private BigDecimal total;
 
     @Column
     private int saleState;
@@ -30,7 +31,7 @@ public class Sale {
     private Client DPIClient;
 
     @ManyToOne
-    @JoinColumn(name = "userCode",foreignKey = @ForeignKey(name = "FK_user_sale"))
+    @JoinColumn(name = "user_code",foreignKey = @ForeignKey(name = "FK_user_sale"))
     private User userCode;
 
     public Sale() {
@@ -52,11 +53,11 @@ public class Sale {
         this.saleDate = saleDate;
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
