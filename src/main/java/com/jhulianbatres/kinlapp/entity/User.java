@@ -28,8 +28,8 @@ public class User {
     @Column
     private String userState;
 
-    @OneToMany(mappedBy = "codeUser",cascade = CascadeType.ALL)
-    private List<User> sales;
+    @OneToMany(mappedBy = "userCode",cascade = CascadeType.ALL)
+    private List<Sale> sales;
 
     public User() {
     }
@@ -82,11 +82,11 @@ public class User {
         this.userState = userState;
     }
 
-    public List<User> getSales() {
+    public List<Sale> getSales() {
         return sales;
     }
 
-    public void setSales(List<User> sales) {
+    public void setSales(List<Sale> sales) {
         this.sales = sales;
     }
 }

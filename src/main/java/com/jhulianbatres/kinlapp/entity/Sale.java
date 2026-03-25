@@ -22,8 +22,8 @@ public class Sale {
     @Column
     private int saleState;
 
-    @OneToMany(mappedBy = "saleCode",cascade = CascadeType.ALL)
-    private List<Sale> saleDetail;
+    @OneToMany(mappedBy = "codeSaleDetail",cascade = CascadeType.ALL)
+    private List<SaleDetail> saleDetail;
 
     @ManyToOne
     @JoinColumn(name = "DPIClient",foreignKey = @ForeignKey(name = "FK_client_sale"))
@@ -68,11 +68,11 @@ public class Sale {
         this.saleState = saleState;
     }
 
-    public List<Sale> getSaleDetail() {
+    public List<SaleDetail> getSaleDetail() {
         return saleDetail;
     }
 
-    public void setSaleDetail(List<Sale> saleDetail) {
+    public void setSaleDetail(List<SaleDetail> saleDetail) {
         this.saleDetail = saleDetail;
     }
 
