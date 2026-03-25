@@ -26,7 +26,7 @@ public class User {
     private String userRol;
 
     @Column
-    private String userState;
+    private int userState;
 
     @OneToMany(mappedBy = "userCode",cascade = CascadeType.ALL)
     private List<Sale> sales;
@@ -74,11 +74,11 @@ public class User {
         this.userRol = userRol;
     }
 
-    public String getUserState() {
+    public int getUserState() {
         return userState;
     }
 
-    public void setUserState(String userState) {
+    public void setUserState(int userState) {
         this.userState = userState;
     }
 
