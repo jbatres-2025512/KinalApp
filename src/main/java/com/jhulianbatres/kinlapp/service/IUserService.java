@@ -7,29 +7,19 @@ import java.util.Optional;
 
 public interface IUserService {
 
-    /*
-    Metodo para listar todos los usuarios
-    */
+    //Metodo para listar todos los usuarios
     List<User> listAll();
 
-    /*
-    Metodo para guardar a los usuarios en la base de datos
-    */
+    //Metodo para guardar a los usuarios en la base de datos
     User save(User user);
 
-    /*
-    Metodo para buscar por codigo de usuario
-    */
+    //Metodo para buscar por codigo de usuario
     Optional<User> findByUserCode(Long userCode);
 
-    /*
-    Metodo para actualizar usuario
-    */
+    //Metodo para actualizar usuario
     User update(Long userCode,User user);
 
-    /*
-    Metodo para eliminar un usuario por su codigo de usuario
-     */
+    //Metodo para eliminar un usuario por su codigo de usuario
     void delete(Long userCode);
 
     //boolean - Retornara true si existe y false si no exite
