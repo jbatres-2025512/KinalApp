@@ -11,7 +11,7 @@ public class Sale {
 
     @Id
     @Column(name = "sale_code")
-    private int saleCode;
+    private Long saleCode;
 
     @Column (nullable = false)
     private LocalDateTime saleDate;
@@ -36,11 +36,11 @@ public class Sale {
     public Sale() {
     }
 
-    public int getSaleCode() {
+    public Long getSaleCode() {
         return saleCode;
     }
 
-    public void setSaleCode(int saleCode) {
+    public void setSaleCode(Long saleCode) {
         this.saleCode = saleCode;
     }
 

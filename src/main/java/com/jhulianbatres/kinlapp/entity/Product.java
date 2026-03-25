@@ -10,7 +10,7 @@ public class Product {
 
     @Id
     @Column(name = "product_code")
-    private int productCode;
+    private Long productCode;
 
     @Column
     private String productName;
@@ -31,11 +31,11 @@ public class Product {
     public Product() {
     }
 
-    public int getProductCode() {
+    public Long getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(int productCode) {
+    public void setProductCode(Long productCode) {
         this.productCode = productCode;
     }
 

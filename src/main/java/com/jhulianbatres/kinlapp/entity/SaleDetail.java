@@ -9,7 +9,7 @@ public class SaleDetail {
 
     @Id
     @Column(name = "code_saleDetail")
-    private int codeSaleDetail;
+    private Long codeSaleDetail;
 
     @Column
     private int amount;
@@ -31,11 +31,11 @@ public class SaleDetail {
     public SaleDetail() {
     }
 
-    public int getCodeSaleDetail() {
+    public Long getCodeSaleDetail() {
         return codeSaleDetail;
     }
 
-    public void setCodeSaleDetail(int codeSaleDetail) {
+    public void setCodeSaleDetail(Long codeSaleDetail) {
         this.codeSaleDetail = codeSaleDetail;
     }
 

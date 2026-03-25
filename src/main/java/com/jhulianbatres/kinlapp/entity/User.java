@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @Column (name="user_code")
-    private int userCode;
+    private Long userCode;
 
     @Column
     private String userName;
@@ -34,11 +34,11 @@ public class User {
     public User() {
     }
 
-    public int getUserCode() {
+    public Long getUserCode() {
         return userCode;
     }
 
-    public void setUserCode(int userCode) {
+    public void setUserCode(Long userCode) {
         this.userCode = userCode;
     }
 
