@@ -76,7 +76,28 @@ public class UserController {
 
     }
 
-    
+    @PutMapping("/{userCode}")
+    public ResponseEntity<?> update(@PathVariable Long userCode, @RequestBody User user){
+
+        try {
+
+            if (!userService.existByUserCode(userCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+            User updateUser = userService.update(userCode,user);
+
+            return ResponseEntity.ok(updateUser);
+
+
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+
+
+    }
 
 
 
