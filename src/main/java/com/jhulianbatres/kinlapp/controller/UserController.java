@@ -57,8 +57,26 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/{userCode}")
+    public ResponseEntity<Void> delete(@PathVariable Long userCode){
+
+        try {
+
+            if (!userService.existByUserCode(userCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+            userService.delete(userCode);
+            return ResponseEntity.noContent().build();
+
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
 
 
+    }
+
+    
 
 
 

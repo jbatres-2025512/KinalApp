@@ -64,7 +64,7 @@ public class UserService implements IUserService{
 
     @Override
     @Transactional(readOnly = true)
-    public boolean existByDpi(Long userCode) {
+    public boolean existByUserCode(Long userCode) {
         return userRepository.existsById(userCode);
     }
 
