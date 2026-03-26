@@ -10,6 +10,9 @@ public interface IUserService {
     //Metodo para listar todos los usuarios
     List<User> listAll();
 
+    //Metodo para listar todos los usarios segun su estado
+    List<User> findByUserState();
+
     //Metodo para guardar a los usuarios en la base de datos
     User save(User user);
 
@@ -23,5 +26,5 @@ public interface IUserService {
     void delete(Long userCode);
 
     //boolean - Retornara true si existe y false si no exite
-    boolean existByDpi(Long userCode);
+    boolean existByUserCode(Long userCode);
 }

@@ -38,6 +38,12 @@ public class UserController {
 
     }
 
+    @GetMapping("/actives")
+    public ResponseEntity<List<User>> findByUserState(){
+        return ResponseEntity.ok(userService.findByUserState());
+    }
+
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody User user){
 

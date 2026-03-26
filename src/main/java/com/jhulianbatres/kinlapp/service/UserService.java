@@ -1,5 +1,6 @@
 package com.jhulianbatres.kinlapp.service;
 
+import com.jhulianbatres.kinlapp.entity.Client;
 import com.jhulianbatres.kinlapp.entity.User;
 import com.jhulianbatres.kinlapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -28,6 +30,15 @@ public class UserService implements IUserService{
     public List<User> listAll(){
         return userRepository.findAll();
     }
+
+    @Override
+    public List<User> findByUserState(){
+
+        return userRepository.findAll().stream().filter(userState -> userState.getUserState() !=0).collect(Collectors.toList());
+
+    }
+
+
 
     @Override
     public User save(User user) {
