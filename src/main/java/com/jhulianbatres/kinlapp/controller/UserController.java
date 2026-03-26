@@ -2,11 +2,9 @@ package com.jhulianbatres.kinlapp.controller;
 
 import com.jhulianbatres.kinlapp.entity.User;
 import com.jhulianbatres.kinlapp.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +25,8 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+
+
     @GetMapping("/{userCode}")
     public ResponseEntity<User> searchByUserCode(@PathVariable Long userCode){
 
@@ -35,8 +35,28 @@ public class UserController {
                 .map(ResponseEntity::ok)
 
                 .orElse(ResponseEntity.notFound().build());
-                    
+
     }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody User user){
+
+        try {
+
+            User newUser = userService.save(user);
+
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+
+
+        }catch (IllegalArgumentException e){
+
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+
+    }
+
 
 
 
