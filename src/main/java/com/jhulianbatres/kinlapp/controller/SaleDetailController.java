@@ -49,6 +49,29 @@ public class SaleDetailController {
         }
     }
 
+    @PutMapping("/{codeSaleDetail}")
+    public ResponseEntity<?>update(@PathVariable Long codeSaleDetail, SaleDetail saleDetail){
+      try{
+
+        if (!saleDetailService.existByCodeSaleDetail(codeSaleDetail)){
+            return ResponseEntity.notFound().build();
+        }
+
+        SaleDetail updatedSailDetail = saleDetailService.update(codeSaleDetail,saleDetail);
+
+        return ResponseEntity.ok(updatedSailDetail);
+
+      }catch (IllegalArgumentException e){
+
+          return ResponseEntity.badRequest().body(e.getMessage());
+
+      }catch (RuntimeException e){
+
+          return ResponseEntity.notFound().build();
+
+      }
+
+    }
 
 
 }
