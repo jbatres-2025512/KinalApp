@@ -5,6 +5,7 @@ import com.jhulianbatres.kinlapp.repository.SaleDetailRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,10 @@ public class SaleDetailService implements ISaleDetail {
     }
 
     @Override
-    public SaleDetail save(SaleDetail saleDetailService) {
-        return saleDetailRepository.save(saleDetailService);
+    public SaleDetail save(SaleDetail saleDetail) {
+
+        validateSaleDetail(saleDetail);
+        return saleDetailRepository.save(saleDetail);
     }
 
     @Override
@@ -42,12 +45,14 @@ public class SaleDetailService implements ISaleDetail {
     }
 
     @Override
-    public SaleDetail update(Long codeSaleDetail, SaleDetail saleDetailService) {
+    public SaleDetail update(Long codeSaleDetail, SaleDetail saleDetail) {
         if (!saleDetailRepository.existsById(codeSaleDetail))
             throw new RuntimeException("No se encontro nigun detalle de venta para actualizar con el codigo: " + codeSaleDetail);
-        saleDetailService.setCodeSaleDetail(codeSaleDetail);
+        saleDetail.setCodeSaleDetail(codeSaleDetail);
 
-        return saleDetailRepository.save(saleDetailService);
+        validateSaleDetail(saleDetail);
+
+        return saleDetailRepository.save(saleDetail);
 
     }
 
@@ -65,5 +70,24 @@ public class SaleDetailService implements ISaleDetail {
     @Transactional(readOnly = true)
     public boolean existByCodeSaleDetail(Long codeSaleDetail) {
         return saleDetailRepository.existsById(codeSaleDetail);
+    }
+
+    private void validateSaleDetail(SaleDetail saleDetail){
+
+        if (saleDetail.getCodeSaleDetail()==null || saleDetail.getCodeSaleDetail().toString().trim().isEmpty()){
+            throw new IllegalArgumentException("El codigo de venta no puede estar vacio!");
+        }
+
+        if (saleDetail.getAmount()<0 ) {
+            throw new IllegalArgumentException("La cantidad de productos no puede ser menor a 0");
+        }
+
+        if (saleDetail.getSubtotal().compareTo(BigDecimal.ZERO)<0 || saleDetail.getSubtotal()==null) {
+            throw new IllegalArgumentException("El subtotal no puede ser negativo");
+        }
+
+        if (saleDetail.getUnit_price().compareTo(BigDecimal.ZERO)<0 || saleDetail.getUnit_price()==null){
+            throw new IllegalArgumentException("El precio por unidad no puede ser menor a cero");
+        }
     }
 }

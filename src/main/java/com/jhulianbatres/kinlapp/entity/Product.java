@@ -26,7 +26,7 @@ public class Product {
     private int productState;
 
     @OneToMany(mappedBy = "productCode",cascade = CascadeType.ALL)
-    private List<Product> saleDetail;
+    private List<SaleDetail> saleDetail;
 
 
     public Product() {
@@ -72,11 +72,11 @@ public class Product {
         this.productState = productState;
     }
 
-    public List<Product> getSaleDetail() {
+    public List<SaleDetail> getSaleDetail() {
         return saleDetail;
     }
 
-    public void setSaleDetail(List<Product> saleDetail) {
+    public void setSaleDetail(List<SaleDetail> saleDetail) {
         this.saleDetail = saleDetail;
     }
 }
