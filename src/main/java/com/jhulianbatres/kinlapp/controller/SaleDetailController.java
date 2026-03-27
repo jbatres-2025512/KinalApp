@@ -73,5 +73,23 @@ public class SaleDetailController {
 
     }
 
+    @DeleteMapping("/{codeSaleDetail}")
+    public ResponseEntity<Void> delete(@PathVariable Long codeSaleDetail){
+
+        try {
+
+            if (!saleDetailService.existByCodeSaleDetail(codeSaleDetail)){
+                return ResponseEntity.noContent().build();
+            }
+
+            saleDetailService.delete(codeSaleDetail);
+
+            return ResponseEntity.noContent().build();
+
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+        
+    }
 
 }
