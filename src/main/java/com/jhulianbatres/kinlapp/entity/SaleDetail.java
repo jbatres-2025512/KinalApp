@@ -27,7 +27,7 @@ public class SaleDetail {
     private Product productCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sale_code",foreignKey = @ForeignKey(name = "FK_sale_saleDetail"))
+    @JoinColumn(name = "saleCode",foreignKey = @ForeignKey(name = "FK_sale_saleDetail"))
     private Sale saleCode;
 
     public SaleDetail() {

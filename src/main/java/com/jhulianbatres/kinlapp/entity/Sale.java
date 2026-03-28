@@ -29,7 +29,7 @@ public class Sale {
     @Column
     private int saleState;
 
-    @OneToMany(mappedBy = "codeSaleDetail",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "saleCode",cascade = CascadeType.ALL)
     private List<SaleDetail> saleDetail;
 
     @ManyToOne(fetch=FetchType.LAZY)
