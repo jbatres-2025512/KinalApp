@@ -50,7 +50,7 @@ public class SaleDetailController {
     }
 
     @PutMapping("/{codeSaleDetail}")
-    public ResponseEntity<?>update(@PathVariable Long codeSaleDetail, SaleDetail saleDetail){
+    public ResponseEntity<?>update(@PathVariable Long codeSaleDetail,@RequestBody SaleDetail saleDetail){
       try{
 
         if (!saleDetailService.existByCodeSaleDetail(codeSaleDetail)){
@@ -89,7 +89,7 @@ public class SaleDetailController {
         }catch (RuntimeException e){
             return ResponseEntity.notFound().build();
         }
-        
+
     }
 
 }

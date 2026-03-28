@@ -22,11 +22,11 @@ public class SaleDetail {
     @Column
     private BigDecimal subtotal;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productCode",foreignKey = @ForeignKey(name = "FK_product_saleDetail"))
     private Product productCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sale_code",foreignKey = @ForeignKey(name = "FK_sale_saleDetail"))
     private Sale saleCode;
 

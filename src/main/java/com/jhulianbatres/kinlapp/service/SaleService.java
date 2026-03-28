@@ -90,18 +90,18 @@ public class SaleService implements ISaleService {
         }
 
         if (sale.getDPIClient() == null || sale.getDPIClient().getDPIClient() == null) {
-            throw new IllegalArgumentException("La venta debe estar asociada a un cliente válido");
+            throw new IllegalArgumentException("La venta debe tener a un cliente válido");
         }
 
         if (sale.getUserCode() == null || sale.getUserCode().getUserCode() == null) {
-            throw new IllegalArgumentException("La venta debe tener un usuario/vendedor asignado");
+            throw new IllegalArgumentException("La venta debe tener un usuario asignado");
         }
 
         if (sale.getSaleState() < 0) {
             throw new IllegalArgumentException("El estado de la venta no puede ser negativo");
         }
 
-        
+
 
     }
 

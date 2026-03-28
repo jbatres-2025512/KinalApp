@@ -79,15 +79,26 @@ public class SaleDetailService implements ISaleDetailService {
         }
 
         if (saleDetail.getAmount()<0 ) {
-            throw new IllegalArgumentException("La cantidad de productos no puede ser menor a 0");
+            throw new IllegalArgumentException("La cantidad de productos es un campo obligatorio y no puede ser menor a 0");
         }
 
-        if (saleDetail.getSubtotal().compareTo(BigDecimal.ZERO)<0 || saleDetail.getSubtotal()==null) {
-            throw new IllegalArgumentException("El subtotal no puede ser negativo");
+        if (saleDetail.getSubtotal()==null || saleDetail.getSubtotal().compareTo(BigDecimal.ZERO)<0) {
+            throw new IllegalArgumentException("El subtotal es un campo obligatorio no puede ser negativo");
         }
 
-        if (saleDetail.getUnit_price().compareTo(BigDecimal.ZERO)<0 || saleDetail.getUnit_price()==null){
+        if (saleDetail.getUnit_price()==null ||saleDetail.getUnit_price().compareTo(BigDecimal.ZERO)<0){
             throw new IllegalArgumentException("El precio por unidad no puede ser menor a cero");
         }
+
+        if (saleDetail.getProductCode() == null || saleDetail.getProductCode().getProductCode() == null) {
+            throw new IllegalArgumentException("El detalle de la venta debe tener un producto valido");
+        }
+
+        if (saleDetail.getSaleCode() == null || saleDetail.getSaleCode().getSaleCode() == null) {
+            throw new IllegalArgumentException("El detalle de la venta debe tener una venta valida");
+        }
+
+        
+
     }
 }
