@@ -63,7 +63,7 @@ public class SaleController {
 
         try {
 
-            if (!saleService.exstBySaleCode(saleCode)){
+            if (!saleService.existBySaleCode(saleCode)){
                 return ResponseEntity.notFound().build();
             }
 

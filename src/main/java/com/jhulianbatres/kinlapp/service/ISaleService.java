@@ -26,6 +26,6 @@ public interface ISaleService {
     void delete(Long saleCode);
 
     //Metodo para validar que exista la venta con su codigo
-    boolean   exstBySaleCode(Long saleCode);
+    boolean   existBySaleCode(Long saleCode);
     
 }

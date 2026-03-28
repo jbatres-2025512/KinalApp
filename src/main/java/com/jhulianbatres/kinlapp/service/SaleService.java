@@ -75,7 +75,7 @@ public class SaleService implements ISaleService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean exstBySaleCode(Long saleCode) {
+    public boolean existBySaleCode(Long saleCode) {
         return saleRepository.existsById(saleCode);
     }
 
