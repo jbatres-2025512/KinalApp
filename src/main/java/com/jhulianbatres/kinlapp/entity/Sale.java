@@ -32,11 +32,11 @@ public class Sale {
     @OneToMany(mappedBy = "codeSaleDetail",cascade = CascadeType.ALL)
     private List<SaleDetail> saleDetail;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "DPIClient",foreignKey = @ForeignKey(name = "FK_client_sale"))
     private Client DPIClient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_code",foreignKey = @ForeignKey(name = "FK_user_sale"))
     private User userCode;
 

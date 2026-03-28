@@ -24,7 +24,7 @@ public class Client {
     @Column
     private Integer state;
 
-    @OneToMany(mappedBy = "DPIClient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "DPIClient", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Sale> sale;
 
     public Client() {

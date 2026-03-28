@@ -98,7 +98,5 @@ public class SaleDetailService implements ISaleDetailService {
             throw new IllegalArgumentException("El detalle de la venta debe tener una venta valida");
         }
 
-        
-
     }
 }

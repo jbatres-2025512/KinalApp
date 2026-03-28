@@ -82,7 +82,7 @@ public class ProductService implements IProductService{
 
     public void validateProduct(Product product){
 
-            if (product.getProductCode()==null || product.getProductCode().toString().trim().isEmpty()){
+            if (product.getProductCode()==null){
                 throw new IllegalArgumentException("El codigo de producto es obligatorio");
             }
 
@@ -90,7 +90,7 @@ public class ProductService implements IProductService{
                 throw new IllegalArgumentException("El nombre del producto es obligatorio");
             }
 
-            if (product.getPrice().compareTo(BigDecimal.ZERO)<0 || product.getPrice()==null || product.getPrice().toString().trim().isEmpty()){
+            if (product.getPrice()==null || product.getPrice().compareTo(BigDecimal.ZERO)<0){
                 throw new IllegalArgumentException("El precio no puede ser negativo ni estar vacio");
             }
 

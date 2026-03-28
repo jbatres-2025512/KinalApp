@@ -28,7 +28,7 @@ public class User {
     @Column
     private int userState;
 
-    @OneToMany(mappedBy = "userCode",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userCode",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Sale> sales;
 
     public User() {
