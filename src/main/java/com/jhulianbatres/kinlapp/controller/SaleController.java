@@ -4,11 +4,9 @@ package com.jhulianbatres.kinlapp.controller;
 import com.jhulianbatres.kinlapp.entity.Product;
 import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.service.SaleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,5 +46,18 @@ public class SaleController {
         return ResponseEntity.ok(saleService.findBySaleState());
     }
 
+    @PostMapping
+    public ResponseEntity<?>save(@RequestBody Sale sale){
+
+        try {
+
+            Sale newSale = saleService.save(sale);
+            return new ResponseEntity<>(newSale, HttpStatus.CREATED);
+
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
 
 }
