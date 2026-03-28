@@ -14,8 +14,14 @@ public class Sale {
     @Column(name = "sale_code")
     private Long saleCode;
 
-    @Column (nullable = false)
+    @Column (nullable = false,updatable = false)
+
     private LocalDateTime saleDate;
+
+    @PrePersist
+    protected void onCreate(){
+        this.saleDate = LocalDateTime.now();
+    }
 
     @Column
     private BigDecimal total;

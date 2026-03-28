@@ -74,7 +74,7 @@ public class SaleDetailService implements ISaleDetailService {
 
     private void validateSaleDetail(SaleDetail saleDetail){
 
-        if (saleDetail.getCodeSaleDetail()==null || saleDetail.getCodeSaleDetail().toString().trim().isEmpty()){
+        if (saleDetail.getCodeSaleDetail()==null){
             throw new IllegalArgumentException("El codigo de venta no puede estar vacio!");
         }
 
