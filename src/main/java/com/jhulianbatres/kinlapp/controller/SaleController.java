@@ -60,4 +60,22 @@ public class SaleController {
 
     }
 
+    @DeleteMapping("/{saleCode}")
+    public  ResponseEntity<Void>delete(@PathVariable Long saleCode){
+
+        try {
+
+            if (!saleService.exstBySaleCode(saleCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+            saleService.delete(saleCode);
+            return ResponseEntity.noContent().build();
+
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }
