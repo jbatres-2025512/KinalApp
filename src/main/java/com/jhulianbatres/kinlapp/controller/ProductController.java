@@ -43,5 +43,21 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByProductState());
     }
 
+    @PostMapping
+    public ResponseEntity<?>save(@RequestBody Product product){
+
+        try {
+
+            Product newProduct = productService.save(product);
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+
+
+
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+
+    }
     
 }
