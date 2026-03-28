@@ -26,4 +26,16 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/{productCode}")
+    public ResponseEntity<Product>searchByProductCode(@PathVariable Long productCode){
+
+        return productService.findProductByCode(productCode)
+
+                .map(ResponseEntity::ok)
+
+                .orElse(ResponseEntity.notFound().build());
+
+
+    }
+    
 }
