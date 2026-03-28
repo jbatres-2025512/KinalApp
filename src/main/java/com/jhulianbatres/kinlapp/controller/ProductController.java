@@ -69,12 +69,8 @@ public class ProductController {
                 return ResponseEntity.notFound().build();
             }
 
-
-
             productService.delete(productCode);
             return ResponseEntity.noContent().build();
-
-
 
         }catch (RuntimeException e){
             return ResponseEntity.notFound().build();
@@ -82,5 +78,26 @@ public class ProductController {
 
     }
 
-    
+    @PutMapping("/{productCode}")
+    public ResponseEntity<?> update(@PathVariable Long productCode, @RequestBody Product product){
+
+        try {
+
+            if (!productService.existByProductCode(productCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+            Product updateProduct = productService.update(productCode,product);
+
+            return ResponseEntity.ok(updateProduct);
+
+
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }
