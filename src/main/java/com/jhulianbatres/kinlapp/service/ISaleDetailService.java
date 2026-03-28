@@ -5,7 +5,7 @@ import com.jhulianbatres.kinlapp.entity.SaleDetail;
 import java.util.List;
 import java.util.Optional;
 
-public interface ISaleDetail {
+public interface ISaleDetailService {
 
     //Metodo para listar todos los detalles de ventas
     List<SaleDetail> listAll();

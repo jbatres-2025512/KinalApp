@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Transactional
 
-public class SaleDetailService implements ISaleDetail {
+public class SaleDetailService implements ISaleDetailService {
 
     private final SaleDetailRepository saleDetailRepository;
 
