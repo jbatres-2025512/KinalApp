@@ -1,9 +1,11 @@
 package com.jhulianbatres.kinlapp.controller;
 
+
 import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.service.SaleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +31,16 @@ public class SaleController {
         return ResponseEntity.ok(sale);
     }
 
+    @GetMapping("/{saleCode}")
+    public ResponseEntity<Sale>searchBySaleCode(@PathVariable Long saleCode){
 
+        return saleService.findBySaleCode(saleCode)
+
+                .map(ResponseEntity::ok)
+
+                .orElse(ResponseEntity.notFound().build());
+        
+    }
 
 
 
