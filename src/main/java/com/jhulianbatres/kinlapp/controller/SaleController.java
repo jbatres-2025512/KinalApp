@@ -1,7 +1,5 @@
 package com.jhulianbatres.kinlapp.controller;
 
-
-import com.jhulianbatres.kinlapp.entity.Product;
 import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.service.SaleService;
 import org.springframework.http.HttpStatus;
@@ -72,6 +70,28 @@ public class SaleController {
             saleService.delete(saleCode);
             return ResponseEntity.noContent().build();
 
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    @PutMapping("/{saleCode}")
+    public ResponseEntity<?> update(@PathVariable Long saleCode, @RequestBody Sale sale){
+
+        try {
+
+            if (!saleService.exstBySaleCode(saleCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+            Sale updateSale = saleService.update(saleCode,sale);
+
+            return ResponseEntity.ok(updateSale);
+
+
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }catch (RuntimeException e){
             return ResponseEntity.notFound().build();
         }
