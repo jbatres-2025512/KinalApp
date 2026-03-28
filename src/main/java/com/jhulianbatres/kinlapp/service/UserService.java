@@ -39,7 +39,6 @@ public class UserService implements IUserService{
     }
 
 
-
     @Override
     public User save(User user) {
         validateUser(user);
@@ -61,6 +60,8 @@ public class UserService implements IUserService{
             throw new RuntimeException("No se encontro ningun usuario con este codigo: " + userCode);
 
         user.setUserCode(userCode);
+
+        validateUser(user);
 
         return userRepository.save(user);
     }

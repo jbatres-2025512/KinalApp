@@ -16,6 +16,8 @@ public interface IProductService {
     //Metodod para agregar  productos
     Product save(Product product);
 
+    List<Product>findByProductState();
+
     //Metodo para actualizar productos
     Product update(Long productCode,Product  product);
 
