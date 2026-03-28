@@ -59,5 +59,28 @@ public class ProductController {
 
 
     }
+
+    @DeleteMapping("/{productCode}")
+    public  ResponseEntity<Void>delete(@PathVariable Long productCode){
+
+        try {
+
+            if (!productService.existByProductCode(productCode)){
+                return ResponseEntity.notFound().build();
+            }
+
+
+
+            productService.delete(productCode);
+            return ResponseEntity.noContent().build();
+
+
+
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     
 }
