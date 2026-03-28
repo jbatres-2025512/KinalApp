@@ -1,6 +1,7 @@
 package com.jhulianbatres.kinlapp.controller;
 
 
+import com.jhulianbatres.kinlapp.entity.Product;
 import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.service.SaleService;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +40,13 @@ public class SaleController {
                 .map(ResponseEntity::ok)
 
                 .orElse(ResponseEntity.notFound().build());
-        
+
     }
 
+    @GetMapping("/actives")
+    public ResponseEntity<List<Sale>>findBySaleState(){
+        return ResponseEntity.ok(saleService.findBySaleState());
+    }
 
 
 }
