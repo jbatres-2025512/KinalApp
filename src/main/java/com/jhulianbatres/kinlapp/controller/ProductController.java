@@ -37,5 +37,11 @@ public class ProductController {
 
 
     }
+
+    @GetMapping("/actives")
+    public ResponseEntity<List<Product>>findByProductState(){
+        return ResponseEntity.ok(productService.findByProductState());
+    }
+
     
 }
