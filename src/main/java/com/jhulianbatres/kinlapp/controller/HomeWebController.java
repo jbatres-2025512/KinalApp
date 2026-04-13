@@ -10,7 +10,7 @@ public class HomeWebController {
 
 
     @GetMapping("/")
-    public String index(){
+    public String home(){
 
 
 
