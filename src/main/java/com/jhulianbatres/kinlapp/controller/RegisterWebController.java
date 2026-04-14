@@ -19,7 +19,10 @@ public class RegisterWebController {
     }
 
     @GetMapping("/register")
-    public String register(){
+    public String register(Model model){
+
+        model.addAttribute("newUser",new User());
+
         return ("register");
     }
 

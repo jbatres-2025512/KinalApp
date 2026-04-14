@@ -4,6 +4,7 @@ body{
     color: #ffffff;
     font-size: 15px;
 }
+
 .login-container {
     width: 300px;
     margin: 100px auto;
@@ -22,9 +23,12 @@ body{
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #fff9f9;
+    border: 2px solid #ffffff44;
     border-radius: 4px;
-}
+    background-color: #6275c7;
+    color: white;
+}   
+
 .login-container button {
     background-color: #d16236;
     color: white;
@@ -64,13 +68,16 @@ body{
     margin-top: 20px;
 }
 .register-link {
-    color: #f1bf36;
+    color: #d16236;
     text-decoration: none;
 }
 
 .register-link:hover {
-    color: #ff7c3fd0;
+    color: #d8b82b;
     transition: ease-in-out 0.3s;
 }
 
-
+::placeholder {
+    color: rgba(255, 255, 255, 0.541);
+    opacity: 1;
+}
