@@ -74,6 +74,7 @@ public class UserService implements IUserService{
         userRepository.deleteById(userCode);
     }
 
+    @Override
     public User register(User user) {
         user.setUserState(1);
         if (user.getUserRol() == null || user.getUserRol().trim().isEmpty())
@@ -81,18 +82,18 @@ public class UserService implements IUserService{
         return userRepository.save(user);
     }
 
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
 
-    public User login(String email, String passwordRaw) {
-        User user = userRepository.findByEmail(email);
+    @Override
+    public User login(String userName, String userPassword) {
+        User user = userRepository.findByUserName(userName);
         if (user == null) return null;
 
-        return passwordRaw.equals(user.getUserPassword()) ? user : null;
+        return userPassword.equals(user.getUserPassword()) ? user : null;
     }
-
-    public boolean existsByUserEmail(String email) {
-        return userRepository.existByEmail(email);
-    }
-
 
     @Override
     @Transactional(readOnly = true)

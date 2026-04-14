@@ -29,7 +29,7 @@ public class RegisterWebController {
             Model model) {
 
 
-        if (userService.existsByUserEmail(newUser.getUserEmail())) {
+        if (userService.existByUserCode(newUser.getUserCode())) {
             model.addAttribute("error", "Ya existe una cuenta con ese correo.");
             return "register";
         }
@@ -37,4 +37,6 @@ public class RegisterWebController {
 
         return "redirect:/login?registered";
     }
+
+
 }

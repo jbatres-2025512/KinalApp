@@ -27,4 +27,11 @@ public interface IUserService {
 
     //boolean - Retornara true si existe y false si no exite
     boolean existByUserCode(Long userCode);
+
+    User login(String userEmail, String userPassword);
+
+    User register(User user);
+
+    User findByUserName(String userName);
+
 }

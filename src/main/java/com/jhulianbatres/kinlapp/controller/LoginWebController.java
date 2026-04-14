@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+
 public class LoginWebController {
 
     private final UserService userService;
@@ -26,19 +27,19 @@ public class LoginWebController {
 
     @PostMapping("/login")
     public String processLogin(
-            @RequestParam("userEmail") String userEmail,
-            @RequestParam("userPassword") String userPassword,
+            @RequestParam("username") String username,
+            @RequestParam("userpassword") String userpassword,
             HttpSession session,
             Model model) {
 
-        User user = userService.login(userEmail, userPassword);
+        User user = userService.login(username, userpassword);
 
         if (user == null) {
-            model.addAttribute("error", "Correo o contraseña incorrectos.");
+            model.addAttribute("error", "Usuario o contraseña incorrectos.");
             return "login";
         }
 
-        // userState: 0 = inactivo, cualquier otro valor = activo
+
         if (user.getUserState() == 0) {
             model.addAttribute("error", "Tu cuenta está desactivada.");
             return "login";
@@ -46,12 +47,6 @@ public class LoginWebController {
 
         session.setAttribute("usuarioLogueado", user);
         return "redirect:/home";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/login?logout";
     }
 
 }
