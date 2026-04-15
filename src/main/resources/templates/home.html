@@ -16,29 +16,35 @@
             <img th:src="@{/images/logokinal.png}" src="../static/images/logoKinal.png" alt="Logo Kinal" class="nav-logo">
             <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
         </div>
+        <div class="nav-right">
+            <a htref="#" th:href="@{/login}" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>       Cerrar Sesion
+            </a>
+        </div>
         <div class="nav-center">Bienvenido a KinalApp</div>
     </nav>
     <main>
+        <h1 class="text-left">Elija el CRUD a ingresar</h1>
         <div class="grid">
             <div class="card">
                 <i class="fas fa-users"></i>
                 <h3>Clients</h3>
-                <button class="btn-access">Acceder</button>
+                <a class="btn-access" th:href="@{/client}">Ingresar</a>
             </div>
             <div class="card">
                 <i class="fas fa-box"></i>
                 <h3>Products</h3>
-                <button class="btn-access">Acceder</button>
+                <button class="btn-access">Ingresar</button>
             </div>
             <div class="card">
                 <i class="fas fa-shopping-cart"></i>
                 <h3>Sales</h3>
-                <button class="btn-access">Acceder</button>
+                <button class="btn-access">Ingresar</button>
             </div>
             <div class="card">
                 <i class="fas fa-file-invoice"></i>
                 <h3>Sale Details</h3>
-                <button class="btn-access">Acceder</button>
+                <button class="btn-access">Ingresar</button>
             </div>
         </div>
     </main>

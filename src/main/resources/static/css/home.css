@@ -2,7 +2,7 @@ body {
     background-color: #2a3461;
     font-family: 'Roboto Slab', serif;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 26px;
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,7 +12,7 @@ body {
 
 nav {
     background-color: #304d8b;
-    padding: 15px 40px;
+    padding: 50px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,6 +26,16 @@ nav {
     z-index: 2;
 }
 
+.nav-right:hover{
+    color: #ffd727;
+    transition : color 0.3s;
+    cursor: pointer;
+}
+
+.text-left{
+    margin-left: 50px;
+}
+
 .nav-logo {
     width: 45px;
     height: auto;
@@ -35,17 +45,18 @@ nav {
 .nav-title {
     margin: 0;
     color: #ffffff;
-    font-size: 22px;
+    font-size: 35px;
 }
 
 .nav-title a {
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .nav-title a:hover {
-    color: #d8b82b;
+    color: #ffd727;
     text-decoration: none;
 }
 
@@ -53,7 +64,7 @@ nav {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 20px;
+    font-size: 35px;
     font-weight: 300;
     white-space: nowrap;
 }
@@ -94,7 +105,6 @@ main {
 }
 
 .card:hover {
-    transform: translateY(-15px);
     background-color: #6e82d6;
     box-shadow: 0 20px 45px rgba(0,0,0,0.5);
     border-color: rgba(255, 255, 255, 0.3);
@@ -122,13 +132,15 @@ main {
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none;
     transition: all 0.3s ease;
     width: 90%;
 }
 
+
 .btn-access:hover {
     background-color: #d8b82b;
-    color: #2a3461;
+    color: #212b5a;
 }
 
 footer {
@@ -161,5 +173,11 @@ footer {
     .card {
         width: 260px;
         height: 300px;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-logout span {
+        display: none;
     }
 }
