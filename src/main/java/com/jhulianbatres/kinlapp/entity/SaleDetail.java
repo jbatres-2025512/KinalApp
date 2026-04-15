@@ -11,6 +11,7 @@ public class SaleDetail {
 
     @Id
     @Column(name = "code_saleDetail")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codeSaleDetail;
 
     @Column

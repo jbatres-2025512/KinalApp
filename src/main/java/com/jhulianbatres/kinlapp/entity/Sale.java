@@ -12,6 +12,7 @@ public class Sale {
 
     @Id
     @Column(name = "sale_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long saleCode;
 
     @Column (nullable = false,updatable = false)

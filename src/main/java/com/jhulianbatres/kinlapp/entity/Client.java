@@ -10,6 +10,7 @@ public class Client {
 
     @Id
     @Column (name = "dpi_client")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String DPIClient;
 
     @Column
