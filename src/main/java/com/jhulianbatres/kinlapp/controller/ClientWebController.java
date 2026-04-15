@@ -1,17 +1,14 @@
 package com.jhulianbatres.kinlapp.controller;
 
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeWebController {
-    
-    @GetMapping("/")
-    public String home(){
+public class ClientWebController {
 
-        return "home";
-
+    @GetMapping("/client")
+    public String client(){
+        return ("client");
     }
 
 }
