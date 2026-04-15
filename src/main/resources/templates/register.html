@@ -11,24 +11,24 @@
 </head>
 <body>
 <div class="register-container">
-  <form class="register-form" method="post" th:action="@{/register}">
+  <form class="register-form" method="post" th:action="@{/register}" th:object="${newUser}">
     <div class="register-header">
       <h1 class="register-title">KinalApp | Register</h1>
       <img th:src="@{/images/logokinal.png}" src="../static/images/logoKinal.png" alt="Logo Kinal" class="register-logo">
     </div>
     <div class="form-group">
       <label for="username" class="form-label">Usuario</label>
-      <input type="text" id="username" name="username" class="form-input" placeholder="Ingrese su usuario" required>
+      <input type="text" th:field="*{userName}" id="username" name="userName" class="form-input" placeholder="Ingrese su usuario" required>
     </div>
     <div class="form-group">
       <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" name="email" class="form-input" placeholder="Ingrese su email" required>
+      <input type="email"  th:field="*{userEmail}" id="email" name="userEmail" class="form-input" placeholder="Ingrese su email" required>
     </div>
     <div class="form-group">
       <label for="password" class="form-label">Contraseña</label>
-      <input type="password" id="password" name="password" class="form-input" placeholder="Ingrese su contraseña" required>
+      <input type="password" th:field="*{userPassword}" id="password" name="userPassword" class="form-input" placeholder="Ingrese su contraseña" required>
     </div>
-    <button type="submit" class="btn-register">Registrate</button>
+    <button type="submit" class="btn-register" href="#" th:href="@{/register}">Registrate</button>
     <div class="register-footer">
       <p>¿Ya tiene cuenta? <a href="#" class="login-link" th:href="@{/login}">Inicie Sesion Aqui</a></p>
     </div>

@@ -46,7 +46,7 @@ public class LoginWebController {
         }
 
         session.setAttribute("usuarioLogueado", user);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 }
