@@ -2,14 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Login</title>
+    <title>KinalApp - Home</title>
     <link rel="icon" href="../static/images/logoKinal.png" th:href="@{/images/logokinal.png}">
-    <link rel="stylesheet" th:href="@{/css/client.css}" href="../static/css/client.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="../static/css/home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>prueba conexion client CRUD</h1>
+    <nav>
+        <div class="nav-left">
+            <img th:src="@{/images/logokinal.png}" src="../static/images/logoKinal.png" alt="Logo Kinal" class="nav-logo">
+            <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
+        </div>
+        <div class="nav-right">
+            <a htref="#" th:href="@{/login}" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>       Cerrar Sesion
+            </a>
+        </div>
+        <div class="nav-center">Bienvenido a KinalApp</div>
+    </nav>
+    <main>
+        <h1 class="text-left">Elija el CRUD a ingresar</h1>
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Clients</h3>
+                <a class="btn-access" th:href="@{/client}">Ingresar</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-box"></i>
+                <h3>Products</h3>
+                <button class="btn-access">Ingresar</button>
+            </div>
+            <div class="card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Sales</h3>
+                <button class="btn-access">Ingresar</button>
+            </div>
+            <div class="card">
+                <i class="fas fa-file-invoice"></i>
+                <h3>Sale Details</h3>
+                <button class="btn-access">Ingresar</button>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
