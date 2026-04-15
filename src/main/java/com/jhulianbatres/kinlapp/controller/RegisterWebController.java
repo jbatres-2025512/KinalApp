@@ -27,15 +27,13 @@ public class RegisterWebController {
     }
 
     @PostMapping("/register")
-    public String processRegister(
-            @ModelAttribute("newUser") User newUser,
-            Model model) {
+    public String processRegister(@ModelAttribute("newUser") User newUser, Model model) {
 
-
-        if (userService.existByUserCode(newUser.getUserCode())) {
-            model.addAttribute("error", "Ya existe una cuenta con ese correo.");
+        if (userService.findByUserName(newUser.getUserName()) != null) {
+            model.addAttribute("error", "El nombre de usuario ya esta en uso");
             return "register";
         }
+
         userService.register(newUser);
 
         return "redirect:/login?registered";

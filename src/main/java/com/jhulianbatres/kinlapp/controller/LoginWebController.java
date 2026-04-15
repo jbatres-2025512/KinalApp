@@ -32,9 +32,15 @@ public class LoginWebController {
             HttpSession session,
             Model model) {
 
+
+
         User user = userService.login(username, userpassword);
 
-        if (user == null) {
+        if (user==null)
+            model.addAttribute("error","Este usuario no existe!");
+
+
+        if (!user.getUserName().equals(username) || !user.getUserPassword().equals(userpassword)) {
             model.addAttribute("error", "Usuario o contraseña incorrectos.");
             return "login";
         }

@@ -103,10 +103,6 @@ public class UserService implements IUserService{
 
     private void validateUser(User user){
 
-        if (user.getUserCode()==null || user.getUserCode().toString().trim().isEmpty()){
-            throw new IllegalArgumentException("El codigo de usuario no puede estar vacio!");
-        }
-
         if (user.getUserName()==null || user.getUserName().trim().isEmpty()){
             throw new IllegalArgumentException("El nombre es un dato obligatorio!");
         }
