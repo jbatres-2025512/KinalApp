@@ -82,25 +82,21 @@ public class ProductService implements IProductService{
 
     public void validateProduct(Product product){
 
-            if (product.getProductCode()==null){
-                throw new IllegalArgumentException("El codigo de producto es obligatorio");
-            }
+        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del producto es obligatorio");
+        }
 
-            if (product.getProductName()==null || product.getProductName().trim().isEmpty()){
-                throw new IllegalArgumentException("El nombre del producto es obligatorio");
-            }
+        if (product.getPrice() == null) {
+            throw new IllegalArgumentException("El precio es obligatorio");
+        }
 
-            if (product.getPrice()==null || product.getPrice().compareTo(BigDecimal.ZERO)<0){
-                throw new IllegalArgumentException("El precio no puede ser negativo ni estar vacio");
-            }
+        if (product.getPrice().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
 
-            if (product.getStock()<0 ){
-                throw new IllegalArgumentException("El Stock del productono puede ser negativo");
-            }
-
-            if (product.getProductState()<0){
-                throw new IllegalArgumentException("El estado del producto no puede ser negativo");
-            }
+        if (product.getStock() < 0) {
+            throw new IllegalArgumentException("El stock no puede ser negativo");
+        }
 
 
     }

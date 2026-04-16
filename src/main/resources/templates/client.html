@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Clientes</title>
+    <title>KinalApp - Productos</title>
     <link rel="icon" href="../static/images/logoKinal.png" th:href="@{/images/logokinal.png}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/client.css}" href="../static/css/client.css">
+    <link rel="stylesheet" th:href="@{/css/product.css}" href="../static/css/product.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
@@ -17,153 +17,131 @@
         <img th:src="@{/images/logokinal.png}" src="../static/images/logoKinal.png" alt="Logo Kinal" class="nav-logo">
         <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
     </div>
-    <div class="nav-center">Gestión de Clientes</div>
+    <div class="nav-center">Gestión de Productos</div>
     <div class="nav-right">
-        <a th:href="@{/login}" class="btn-logout">
-            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-        </a>
+        <a th:href="@{/login}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
 </nav>
 
 <main>
-
     <section class="search-section">
-        <h2 class="section-title"><i class="fas fa-search"></i> Buscar Cliente</h2>
-        <form th:action="@{/client/search}" method="get" class="search-form">
+        <h2 class="section-title"><i class="fas fa-search"></i> Buscar Producto</h2>
+        <form th:action="@{/product/search}" method="get" class="search-form">
             <div class="search-container">
-                <input type="text" name="dpi" placeholder="Ingrese DPI del cliente" class="search-input">
-                <button type="submit" class="btn-search">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
-                <a th:href="@{/client}" class="btn-clear">
-                    <i class="fas fa-times"></i> Limpiar
-                </a>
+                <input type="text" name="code" placeholder="Ingrese código del producto" class="search-input">
+                <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
+                <a th:href="@{/product}" class="btn-clear"><i class="fas fa-times"></i> Limpiar</a>
             </div>
         </form>
     </section>
 
     <section class="form-section">
-        <h2 class="section-title"><i class="fas fa-user-plus"></i> Nuevo Cliente</h2>
-        <form th:action="@{/client/add}" method="post" th:object="${client}" class="client-form">
-            <input type="hidden" th:field="*{state}" value="1">
+        <h2 class="section-title"><i class="fas fa-box-open"></i> Nuevo Producto</h2>
+        <form th:action="@{/product/add}" method="post" th:object="${product}" class="product-form">
+            <input type="hidden" th:field="*{productState}" value="1">
             <div class="form-row">
                 <div class="form-group">
-                    <label>DPI</label>
-                    <input type="text" th:field="*{DPIClient}" placeholder="Ej. 1234567890101" required>
-                </div>
-                <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" th:field="*{nameClient}" placeholder="Nombre" required>
+                    <input type="text" th:field="*{productName}" placeholder="Nombre del producto" required>
                 </div>
                 <div class="form-group">
-                    <label>Apellido</label>
-                    <input type="text" th:field="*{lastNameClient}" placeholder="Apellido" required>
+                    <label>Precio</label>
+                    <input type="text" th:field="*{price}" placeholder="Ej. 150.00" required>
                 </div>
                 <div class="form-group">
-                    <label>Dirección</label>
-                    <input type="text" th:field="*{address}" placeholder="Dirección">
+                    <label>Stock</label>
+                    <input type="text" th:field="*{stock}" placeholder="0">
                 </div>
             </div>
-            <button type="submit" class="btn-save">
-                <i class="fas fa-plus"></i> Agregar
-            </button>
+            <button type="submit" class="btn-save"><i class="fas fa-plus"></i> Agregar</button>
         </form>
     </section>
 
     <section class="table-section">
-        <h2 class="section-title"><i class="fas fa-users"></i> Listado de Clientes</h2>
+        <h2 class="section-title"><i class="fas fa-boxes"></i> Listado de Productos</h2>
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr>
-                        <th>DPI</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Dirección</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="c : ${listClients}">
-                        <td th:text="${c.DPIClient}">—</td>
-                        <td th:text="${c.nameClient}">—</td>
-                        <td th:text="${c.lastNameClient}">—</td>
-                        <td th:text="${c.address}">—</td>
-                        <td>
-                            <span class="badge"
-                                th:classappend="${c.state == 1} ? ' badge-active' : ' badge-inactive'"
-                                th:text="${c.state == 1} ? 'Activo' : 'Inactivo'">—</span>
-                        </td>
-                        <td class="actions">
-                            <form th:action="@{/client/delete/{dpi}(dpi=${c.DPIClient})}" method="post">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn-icon btn-delete"
-                                        onclick="return confirm('¿Eliminar este cliente?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(listClients)}">
-                        <td colspan="6" class="empty-row">No hay clientes registrados.</td>
-                    </tr>
+                <tr th:each="p : ${listProducts}">
+                    <td th:text="${p.productCode}"></td>
+                    <td th:text="${p.productName}"></td>
+                    <td th:text="'Q' + ${p.price}"></td>
+                    <td th:text="${p.stock}"></td>
+                    <td>
+                        <span class="badge" th:classappend="${p.productState == 1} ? 'badge-active' : 'badge-inactive'" th:text="${p.productState == 1} ? 'Activo' : 'Inactivo'"></span>
+                    </td>
+                    <td class="actions">
+                        <form th:action="@{/product/delete/{code}(code=${p.productCode})}" method="post">
+                            <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(listProducts)}">
+                    <td colspan="6" class="empty-row">No hay productos registrados.</td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
     <section class="form-section">
-        <h2 class="section-title"><i class="fas fa-user-edit"></i> Editar Cliente</h2>
-        
-        <div th:if="${editClient == null}">
-            <form th:action="@{/client/edit/search}" method="get" class="search-form">
+        <h2 class="section-title"><i class="fas fa-edit"></i> Editar Producto</h2>
+
+        <div th:if="${editProduct == null}">
+            <form th:action="@{/product/edit/search}" method="get" class="search-form">
                 <div class="search-container">
-                    <input type="text" name="dpi" placeholder="Ingrese DPI del cliente a editar" class="search-input" required>
-                    <button type="submit" class="btn-search">
-                        <i class="fas fa-search"></i> Buscar Cliente
-                    </button>
+                    <input type="text" name="code" placeholder="Código del producto a editar" class="search-input" required>
+                    <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
                 </div>
             </form>
         </div>
 
-        <div th:if="${editClient != null}">
-            <form th:action="@{/client/edit/{dpi}(dpi=${editClient.DPIClient})}" method="post"
-                th:object="${editClient}" class="client-form">
+        <div th:if="${editProduct != null}">
+            <form th:action="@{/product/edit/{code}(code=${editProduct.productCode})}" method="post" th:object="${editProduct}" class="product-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>DPI</label>
-                        <input type="text" th:field="*{DPIClient}" readonly class="input-readonly">
+                        <label>Código</label>
+                        <input type="text" th:field="*{productCode}" readonly class="input-readonly">
                     </div>
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input type="text" th:field="*{nameClient}" required>
+                        <input type="text" th:field="*{productName}" required>
                     </div>
                     <div class="form-group">
-                        <label>Apellido</label>
-                        <input type="text" th:field="*{lastNameClient}" required>
+                        <label>Precio</label>
+                        <input type="text" th:field="*{price}" required>
                     </div>
                     <div class="form-group">
-                        <label>Dirección</label>
-                        <input type="text" th:field="*{address}">
+                        <label>Stock</label>
+                        <input type="text" th:field="*{stock}">
                     </div>
                     <div class="form-group">
                         <label>Estado</label>
-                        <select th:field="*{state}">
+                        <select th:field="*{productState}">
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <a th:href="@{/client}" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
+                    <a th:href="@{/product}" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
                     <button type="submit" class="btn-save"><i class="fas fa-save"></i> Actualizar</button>
                 </div>
             </form>
         </div>
     </section>
-
 </main>
-
 </body>
 </html>
