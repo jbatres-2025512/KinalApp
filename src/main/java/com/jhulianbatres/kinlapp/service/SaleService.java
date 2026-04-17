@@ -1,7 +1,9 @@
 package com.jhulianbatres.kinlapp.service;
 
 import com.jhulianbatres.kinlapp.entity.Sale;
+import com.jhulianbatres.kinlapp.repository.ClientRepository;
 import com.jhulianbatres.kinlapp.repository.SaleRepository;
+import com.jhulianbatres.kinlapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +19,13 @@ import java.util.stream.Collectors;
 public class SaleService implements ISaleService {
 
     private final SaleRepository saleRepository;
+    private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
 
-    public SaleService(SaleRepository saleRepository) {
+    public SaleService(SaleRepository saleRepository, ClientRepository clientRepository, UserRepository userRepository) {
         this.saleRepository = saleRepository;
+        this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -51,16 +57,15 @@ public class SaleService implements ISaleService {
 
     @Override
     public Sale update(Long saleCode, Sale sale) {
-        if (!saleRepository.existsById(saleCode)){
-            throw new RuntimeException("No se encontro ninguna venta con el codigo: " + saleCode);
-        }
 
-        sale.setSaleCode(saleCode);
+        Sale saleExistente = saleRepository.findById(saleCode)
+                .orElseThrow(() -> new RuntimeException("No se encontró ninguna venta con el código: " + saleCode));
 
-        validateSale(sale);
+        saleExistente.setSaleState(sale.getSaleState());
 
-        return saleRepository.save(sale);
+        validateSale(saleExistente);
 
+        return saleRepository.save(saleExistente);
     }
 
     @Override
@@ -81,12 +86,12 @@ public class SaleService implements ISaleService {
 
     private void validateSale(Sale sale){
 
-        if (sale.getSaleCode()==null){
-            throw new IllegalArgumentException("El codigo de venta es un campo obligatorio");
+        if (sale.getTotal() == null || sale.getTotal().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("El total es obligatorio y no puede ser negativo");
         }
 
-        if (sale.getTotal()==null || sale.getTotal().compareTo(BigDecimal.ZERO)<0 ){
-            throw new IllegalArgumentException("El total es un campo obligatorio y no puede ser un numero negativo");
+        if (!clientRepository.existsById(sale.getDPIClient().getDPIClient())) {
+            throw new IllegalArgumentException("El DPI del cliente no existe en el sistema.");
         }
 
         if (sale.getDPIClient() == null || sale.getDPIClient().getDPIClient() == null) {

@@ -17,8 +17,8 @@
             <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
         </div>
         <div class="nav-right">
-            <a htref="#" th:href="@{/login}" class="btn-logout">
-                <i class="fas fa-sign-out-alt"></i>       Cerrar Sesion
+            <a th:href="@{/login}" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
             </a>
         </div>
         <div class="nav-center">Bienvenido a KinalApp</div>
@@ -28,23 +28,26 @@
         <div class="grid">
             <div class="card">
                 <i class="fas fa-users"></i>
-                <h3>Clients</h3>
-                <a class="btn-access-client" th:href="@{/client}">Ingresar</a>
+                <h3>Clientes</h3>
+                <a th:href="@{/client}" class="btn-access">Ingresar</a>
             </div>
+
             <div class="card">
                 <i class="fas fa-box"></i>
-                <h3>Products</h3>
-                <button class="btn-access">Ingresar</button>
+                <h3>Productos</h3>
+                <a th:href="@{/product}" class="btn-access">Ingresar</a>
             </div>
+
             <div class="card">
                 <i class="fas fa-shopping-cart"></i>
-                <h3>Sales</h3>
-                <button class="btn-access">Ingresar</button>
+                <h3>Ventas</h3>
+                <a th:href="@{/sale}" class="btn-access">Ingresar</a>
             </div>
+
             <div class="card">
                 <i class="fas fa-file-invoice"></i>
-                <h3>Sale Details</h3>
-                <button class="btn-access">Ingresar</button>
+                <h3>Detalle de Ventas</h3>
+                <a th:href="@{/saleDetail}" class="btn-access">Ingresar</a>
             </div>
         </div>
     </main>
