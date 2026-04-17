@@ -81,10 +81,6 @@ public class SaleDetailService implements ISaleDetailService {
 
     private void validateSaleDetail(SaleDetail saleDetail){
 
-        if (saleDetail.getCodeSaleDetail()==null){
-            throw new IllegalArgumentException("El codigo de venta no puede estar vacio!");
-        }
-
         if (saleDetail.getAmount()<0 ) {
             throw new IllegalArgumentException("La cantidad de productos es un campo obligatorio y no puede ser menor a 0");
         }
