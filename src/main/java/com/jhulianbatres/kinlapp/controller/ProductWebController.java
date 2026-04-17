@@ -68,17 +68,20 @@ public class ProductWebController {
 
     @PostMapping("/add")
     public String addProduct(@ModelAttribute("product") Product product) {
-        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
-            return "redirect:/product?error=nombre";
+        try {
+
+            if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+                return "redirect:/product?error=El nombre es obligatorio";
+            }
+            if (product.getPrice() == null) {
+                return "redirect:/product?error=El precio es obligatorio";
+            }
+
+            productService.save(product);
+            return "redirect:/product";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/product?error=" + e.getMessage();
         }
-        if (product.getPrice() == null) {
-            return "redirect:/product?error=precio";
-        }
-        if (product.getProductState() == 0) {
-            product.setProductState(1);
-        }
-        productService.save(product);
-        return "redirect:/product";
     }
 
     @GetMapping("/edit/search")

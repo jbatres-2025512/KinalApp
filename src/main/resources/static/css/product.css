@@ -428,3 +428,27 @@ tbody td {
     thead th:nth-child(4),
     tbody td:nth-child(4) { display: none; }
 }
+
+.alert-error {
+    background-color: rgba(224, 92, 58, 0.2);
+    border-left: 5px solid #e05c3a;
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.alert-error i {
+    color: #e05c3a;
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
