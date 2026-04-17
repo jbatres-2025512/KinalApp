@@ -10,6 +10,9 @@ public interface ISaleDetailService {
     //Metodo para listar todos los detalles de ventas
     List<SaleDetail> listAll();
 
+    //Metodo para buscar segun el id de venta
+    List<SaleDetail> findBySaleCode(Long saleCode);
+
     //Metodo para guardar los detalles de venta en la base de datos
     SaleDetail save(SaleDetail saleDetail);
 
@@ -24,6 +27,5 @@ public interface ISaleDetailService {
 
     //Metodo para validar que exista por id de el detalle de venta
     boolean existByCodeSaleDetail(Long codeSaleDetail);
-
 
 }

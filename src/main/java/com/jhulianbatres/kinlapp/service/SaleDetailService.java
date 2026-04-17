@@ -29,11 +29,18 @@ public class SaleDetailService implements ISaleDetailService {
     }
 
     @Override
+    public List<SaleDetail> findBySaleCode(Long saleCode) {
+        return saleDetailRepository.findBySaleCode_SaleCode(saleCode);
+    }
+
+
+    @Override
     public SaleDetail save(SaleDetail saleDetail) {
 
         validateSaleDetail(saleDetail);
         return saleDetailRepository.save(saleDetail);
     }
+
 
     @Override
     public Optional<SaleDetail> findBySaleDetailCode(Long codeSaleDetail) {
