@@ -1,13 +1,12 @@
 package com.jhulianbatres.kinlapp.service;
 
-import com.jhulianbatres.kinlapp.entity.SaleDetail;
-import com.jhulianbatres.kinlapp.repository.SaleDetailRepository;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import com.jhulianbatres.kinlapp.entity.SaleDetail;
+import com.jhulianbatres.kinlapp.repository.SaleDetailRepository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;;
 
 @Service
 
@@ -44,10 +43,6 @@ public class SaleDetailService implements ISaleDetailService {
 
     @Override
     public Optional<SaleDetail> findBySaleDetailCode(Long codeSaleDetail) {
-
-        if (!saleDetailRepository.existsById(codeSaleDetail))
-            throw new RuntimeException("No se encontro ningun detalle de venta con el codigo: " + codeSaleDetail);
-
         return saleDetailRepository.findById(codeSaleDetail);
     }
 

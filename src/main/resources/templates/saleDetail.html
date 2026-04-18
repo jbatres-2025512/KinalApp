@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Sale Detail</title>
+    <link rel="icon" href="../static/images/logoKinal.png" th:href="@{/images/logokinal.png}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/saledetail.css}" href="../static/css/saledetail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <div class="nav-left">
+        <img th:src="@{/images/logokinal.png}" alt="Logo Kinal" class="nav-logo">
+        <h1 class="nav-title">KinalApp | <a th:href="@{/sale}">Volver a Ventas</a></h1>
+    </div>
+    <div class="nav-center">Factura #<span th:text="${sale?.saleCode}"></span></div>
+</nav>
+
+<main>
+    <div th:if="${param.error}" class="alert-error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="error-content">
+            <strong>Error:</strong> <span th:text="${param.error[0]}">Error</span>
+        </div>
+    </div>
+
+    <section class="form-section">
+        <h2 class="section-title"><i class="fas fa-cart-plus"></i> Agregar Producto a Factura</h2>
+        <form th:action="@{/saleDetail/add/{id}(id=${sale.saleCode})}" method="post" th:object="${newDetail}" class="product-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Producto *</label>
+                    <select th:field="*{productCode.productCode}" required>
+                        <option value="">Seleccione Producto</option>
+                        <option th:each="p : ${products}" th:value="${p.productCode}" th:text="${p.productName}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cantidad *</label>
+                    <input type="number" th:field="*{amount}" required>
+                </div>
+                <div class="form-group">
+                    <label>Subtotal *</label>
+                    <input type="number" step="0.01" th:field="*{subtotal}" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-save"><i class="fas fa-plus"></i> Registrar Item</button>
+        </form>
+    </section>
+
+    <section class="table-section">
+        <h2 class="section-title"><i class="fas fa-list"></i> Artículos en esta Venta</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID Detalle</th>
+                    <th>Producto</th>
+                    <th>Precio Unit.</th>
+                    <th>Cant.</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="d : ${details}">
+                    <td th:text="${d.codeSaleDetail}"></td>
+                    <td th:text="${d.productCode.productName}"></td>
+                    <td th:text="'Q' + ${d.unit_price}"></td>
+                    <td th:text="${d.amount}"></td>
+                    <td th:text="'Q' + ${d.subtotal}"></td>
+                    <td class="actions">
+                        <form th:action="@{/saleDetail/delete/{sId}/{dId}(sId=${sale.saleCode}, dId=${d.codeSaleDetail})}" method="post">
+                            <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Eliminar?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <h2 class="section-title"><i class="fas fa-edit"></i> Editar Item de Factura</h2>
+
+        <form th:action="@{/saleDetail/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
+            <div class="search-container">
+                <input type="hidden" name="saleCode" th:value="${sale.saleCode}">
+                <input type="number" name="detailCode" placeholder="ID del detalle a editar" class="search-input" required>
+                <button type="submit" class="btn-search">Cargar Datos</button>
+            </div>
+        </form>
+
+        <form th:if="${editDetail != null}"
+              th:action="@{/saleDetail/edit/{sId}/{dId}(sId=${sale.saleCode}, dId=${editDetail.codeSaleDetail})}"
+              method="post"
+              th:object="${editDetail}"
+              class="product-form">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ID Detalle</label>
+                    <input type="text" th:field="*{codeSaleDetail}" readonly class="input-readonly">
+                </div>
+                <div class="form-group">
+                    <label>Cantidad *</label>
+                    <input type="number" th:field="*{amount}" required>
+                </div>
+                <div class="form-group">
+                    <label>Subtotal *</label>
+                    <input type="number" step="0.01" th:field="*{subtotal}" required>
+                </div>
+            </div>
+            <div class="form-actions" style="margin-top: 20px;">
+                <a th:href="@{/saleDetail/{id}(id=${sale.saleCode})}" class="btn-cancel">Cancelar</a>
+                <button type="submit" class="btn-save">Actualizar Item</button>
+            </div>
+        </form>
+
+        <div th:unless="${editDetail != null}" style="text-align: center; color: #666; padding: 20px;">
+            <p><i class="fas fa-info-circle"></i> Ingrese el ID del detalle arriba para habilitar la edición.</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

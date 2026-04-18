@@ -42,11 +42,6 @@ public class SaleService implements ISaleService {
 
     @Override
     public Optional<Sale> findBySaleCode(Long saleCode) {
-
-        if (!saleRepository.existsById(saleCode)){
-            throw new RuntimeException("No se encontro ninguna venta con el codigo: " + saleCode);
-        }
-
         return saleRepository.findById(saleCode);
     }
 
@@ -89,6 +84,11 @@ public class SaleService implements ISaleService {
         if (sale.getTotal() == null || sale.getTotal().compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("El total es obligatorio y no puede ser negativo");
         }
+
+        if (sale.getDPIClient() == null || sale.getDPIClient().getDPIClient() == null) {
+            throw new IllegalArgumentException("La venta debe tener a un cliente válido");
+        }
+
 
         if (!clientRepository.existsById(sale.getDPIClient().getDPIClient())) {
             throw new IllegalArgumentException("El DPI del cliente no existe en el sistema.");

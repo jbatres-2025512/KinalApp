@@ -17,7 +17,7 @@
         <img th:src="@{/images/logokinal.png}" alt="Logo Kinal" class="nav-logo">
         <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
     </div>
-    <div class="nav-center">Gestión de Ventas</div>
+    <div class="nav-center">CRUD de Ventas</div>
     <div class="nav-right">
         <a th:href="@{/login}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
@@ -93,7 +93,11 @@
                               th:text="${s.saleState == 1} ? 'Activa' : 'Inactiva'"></span>
                     </td>
                     <td class="actions">
-                        <form th:action="@{/sale/delete/{code}(code=${s.saleCode})}" method="post">
+                        <a th:href="@{/saleDetail/{code}(code=${s.saleCode})}" class="btn-icon btn-edit" title="Ver Detalle">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <form th:action="@{/sale/delete/{code}(code=${s.saleCode})}" method="post" style="display: inline;">
                             <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar esta venta?')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -110,7 +114,7 @@
 
     <section class="form-section">
         <h2 class="section-title"><i class="fas fa-edit"></i> Editar Venta</h2>
-        
+
         <form th:action="@{/sale/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
             <div class="search-container">
                 <input type="text" name="code" placeholder="Código de venta a editar" class="search-input" required>
@@ -118,12 +122,12 @@
             </div>
         </form>
 
-        <form th:if="${editSale != null}" 
-              th:action="@{/sale/edit/{code}(code=${editSale.saleCode})}" 
-              method="post" 
-              th:object="${editSale}" 
+        <form th:if="${editSale != null}"
+              th:action="@{/sale/edit/{code}(code=${editSale.saleCode})}"
+              method="post"
+              th:object="${editSale}"
               class="product-form">
-            
+
             <div class="form-row">
                 <div class="form-group">
                     <label>Código Venta</label>
@@ -147,7 +151,7 @@
             </div>
         </form>
 
-        <div th:unless="${editProduct != null}" style="text-align: center; color: #666; padding: 20px;">
+        <div th:unless="${editSale != null}" style="text-align: center; color: #666; padding: 20px;">
             <p><i class="fas fa-info-circle"></i> Ingrese el codigo de la venta arriba para habilitar la edición.</p>
         </div>
     </section>
