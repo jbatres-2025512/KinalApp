@@ -25,34 +25,5 @@ public class LoginWebController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String processLogin(
-            @RequestParam("username") String username,
-            @RequestParam("userpassword") String userpassword,
-            HttpSession session,
-            Model model) {
-
-
-
-        User user = userService.login(username, userpassword);
-
-        if (user==null)
-            model.addAttribute("error","Este usuario no existe!");
-
-
-        if (!user.getUserName().equals(username) || !user.getUserPassword().equals(userpassword)) {
-            model.addAttribute("error", "Usuario o contraseña incorrectos.");
-            return "login";
-        }
-
-
-        if (user.getUserState() == 0) {
-            model.addAttribute("error", "Tu cuenta está desactivada.");
-            return "login";
-        }
-
-        session.setAttribute("usuarioLogueado", user);
-        return "redirect:/";
-    }
 
 }
