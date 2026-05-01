@@ -22,15 +22,18 @@ nav {
     z-index: 10;
 }
 
-.btn-logout {
+.fa-sign-out-alt {
     text-decoration: none;
     color: white;
     font-size: 14px;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    transition: color 0.3s ease-in-out;
 }
 
-.btn-logout:hover {
+.fa-sign-out-alt:hover {
     color: #ffd727;
-    transition: color 0.3s;
     cursor: pointer;
 }
 
@@ -136,7 +139,7 @@ main {
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     width: 100%;
 }
 
