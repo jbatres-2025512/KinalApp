@@ -19,7 +19,11 @@
     </div>
     <div class="nav-center">CRUD de Productos</div>
     <div class="nav-right">
-        <a th:href="@{/login}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        <form th:action="@{/logout}" method="post" class="btn-logout" >
+            <button type="submit" class="btn-logout-btn">
+                <i class="fas fa-sign-out-alt">Cerrar Sesión</i>
+            </button>
+        </form>
     </div>
 </nav>
 
