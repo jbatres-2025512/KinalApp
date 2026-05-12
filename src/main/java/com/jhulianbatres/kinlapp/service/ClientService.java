@@ -2,6 +2,7 @@ package com.jhulianbatres.kinlapp.service;
 
 import com.jhulianbatres.kinlapp.entity.Client;
 import com.jhulianbatres.kinlapp.repository.ClientRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,7 +75,9 @@ Que la clase contiene la logica del negocio
 
         }
 
+
         @Override
+        @PreAuthorize("hasRole('ADMIN')")
         public Client update(String DPIClient, Client client) {
 
             //Metodo para actualizar un cliente existente
