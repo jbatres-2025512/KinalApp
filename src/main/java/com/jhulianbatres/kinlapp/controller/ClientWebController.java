@@ -3,6 +3,7 @@ package com.jhulianbatres.kinlapp.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,7 @@ public class ClientWebController {
         return "redirect:/client";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/search")
     public String searchClientToEdit(@RequestParam("dpi") String dpi, Model model) {
         List<Client> clients = clientService.listAll();
@@ -82,6 +84,7 @@ public class ClientWebController {
         return "client";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/edit/{dpi}")
     public String updateClient(@PathVariable("dpi") String dpi, @ModelAttribute("editClient") Client client) {
         boolean exists = clientService.existByDpi(dpi);
@@ -91,6 +94,7 @@ public class ClientWebController {
         return "redirect:/client";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/delete/{dpi}")
     public String deleteClient(@PathVariable("dpi") String dpi) {
         boolean exists = clientService.existByDpi(dpi);
