@@ -2,6 +2,7 @@ package com.jhulianbatres.kinlapp.service;
 
 import com.jhulianbatres.kinlapp.entity.Product;
 import com.jhulianbatres.kinlapp.repository.ProductRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class ProductService implements IProductService{
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public Product update(Long productCode , Product product){
         if (!productRepository.existsById(productCode)){
             throw new  RuntimeException("No se encontro ningun producto con el codigo: " + productCode);
@@ -63,6 +65,7 @@ public class ProductService implements IProductService{
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(Long productCode){
 
         if (!productRepository.existsById(productCode)){
