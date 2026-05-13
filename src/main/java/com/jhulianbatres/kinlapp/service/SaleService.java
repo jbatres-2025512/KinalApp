@@ -4,6 +4,7 @@ import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.repository.ClientRepository;
 import com.jhulianbatres.kinlapp.repository.SaleRepository;
 import com.jhulianbatres.kinlapp.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class SaleService implements ISaleService {
         return saleRepository.findAll().stream().filter(saleState -> saleState.getSaleState() !=0).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public Sale update(Long saleCode, Sale sale) {
 
@@ -62,7 +64,8 @@ public class SaleService implements ISaleService {
 
         return saleRepository.save(saleExistente);
     }
-
+    
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void delete(Long saleCode) {
         if (!saleRepository.existsById(saleCode)){
