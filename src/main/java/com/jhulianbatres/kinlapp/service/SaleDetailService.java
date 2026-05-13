@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import com.jhulianbatres.kinlapp.entity.SaleDetail;
 import com.jhulianbatres.kinlapp.repository.SaleDetailRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;;
 
@@ -46,6 +47,7 @@ public class SaleDetailService implements ISaleDetailService {
         return saleDetailRepository.findById(codeSaleDetail);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public SaleDetail update(Long codeSaleDetail, SaleDetail saleDetail) {
         if (!saleDetailRepository.existsById(codeSaleDetail))
@@ -58,6 +60,7 @@ public class SaleDetailService implements ISaleDetailService {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void delete(Long codeSaleDetail) {
         if (!saleDetailRepository.existsById(codeSaleDetail)) {
