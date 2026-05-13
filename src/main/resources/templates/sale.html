@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Sale</title>
@@ -96,12 +96,12 @@
                         <span class="badge" th:classappend="${s.saleState == 1} ? 'badge-active' : 'badge-inactive'"
                               th:text="${s.saleState == 1} ? 'Activa' : 'Inactiva'"></span>
                     </td>
-                    <td class="actions">
+                    <td class="actions" >
                         <a th:href="@{/saleDetail/{code}(code=${s.saleCode})}" class="btn-icon btn-edit" title="Ver Detalle">
                             <i class="fas fa-eye"></i>
                         </a>
 
-                        <form th:action="@{/sale/delete/{code}(code=${s.saleCode})}" method="post" style="display: inline;">
+                        <form sec:authorize="hasRole('ADMIN')" th:action="@{/sale/delete/{code}(code=${s.saleCode})}"  method="post" style="display: inline;">
                             <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar esta venta?')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -116,7 +116,7 @@
         </div>
     </section>
 
-    <section class="form-section">
+    <section class="form-section" sec:authorize="hasRole('ADMIN')">
         <h2 class="section-title"><i class="fas fa-edit"></i> Editar Venta</h2>
 
         <form th:action="@{/sale/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
