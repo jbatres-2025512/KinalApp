@@ -2,6 +2,7 @@ package com.jhulianbatres.kinlapp.controller;
 
 import com.jhulianbatres.kinlapp.entity.Sale;
 import com.jhulianbatres.kinlapp.service.SaleService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +61,7 @@ public class SaleWebController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/search")
     public String searchSaleToEdit(@RequestParam("code") String code, Model model) {
         model.addAttribute("listSales", saleService.listAll());
@@ -88,6 +90,7 @@ public class SaleWebController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/delete/{code}")
     public String deleteSale(@PathVariable("code") Long code) {
         try {
