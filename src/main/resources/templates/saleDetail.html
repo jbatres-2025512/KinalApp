@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Sale Detail</title>
@@ -74,7 +74,7 @@
                     <td th:text="${d.amount}"></td>
                     <td th:text="'Q' + ${d.subtotal}"></td>
                     <td class="actions">
-                        <form th:action="@{/saleDetail/delete/{sId}/{dId}(sId=${sale.saleCode}, dId=${d.codeSaleDetail})}" method="post">
+                        <form sec:authorize="hasRole('ADMIN')" th:action="@{/saleDetail/delete/{sId}/{dId}(sId=${sale.saleCode}, dId=${d.codeSaleDetail})}" method="post">
                             <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Eliminar?')">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -86,7 +86,7 @@
         </div>
     </section>
 
-    <section class="form-section">
+    <section th:authorize="hasRole('ADMIN')" class="form-section">
         <h2 class="section-title"><i class="fas fa-edit"></i> Editar Item de Factura</h2>
 
         <form th:action="@{/saleDetail/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
