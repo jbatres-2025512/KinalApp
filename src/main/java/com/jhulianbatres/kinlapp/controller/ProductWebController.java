@@ -3,6 +3,7 @@ package com.jhulianbatres.kinlapp.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,6 +85,7 @@ public class ProductWebController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/edit/search")
     public String searchProductToEdit(@RequestParam("code") String code, Model model) {
         List<Product> products = productService.listAll();
@@ -105,6 +107,7 @@ public class ProductWebController {
         return "product";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/edit/{code}")
     public String updateProduct(@PathVariable("code") Long code, @ModelAttribute("editProduct") Product product) {
         if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
@@ -122,6 +125,7 @@ public class ProductWebController {
         return "redirect:/product";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/delete/{code}")
     public String deleteProduct(@PathVariable("code") Long code) {
         boolean exists = productService.existByProductCode(code);
