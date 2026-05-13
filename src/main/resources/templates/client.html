@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Clientes</title>
@@ -89,7 +89,7 @@
                         <span class="badge" th:classappend="${c.state == 1} ? 'badge-active' : 'badge-inactive'"
                               th:text="${c.state == 1} ? 'Activo' : 'Inactivo'"></span>
                     </td>
-                    <td class="actions">
+                    <td class="actions" sec:authorize="hasRole('ADMIN')">
                         <form th:action="@{/client/delete/{dpi}(dpi=${c.DPIClient})}" method="post">
                             <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este cliente?')">
                                 <i class="fas fa-trash"></i>
@@ -105,14 +105,14 @@
         </div>
     </section>
 
-    <section class="form-section">
+    <section class="form-section" sec:authorize="hasRole('ADMIN')">
         <h2 class="section-title"><i class="fas fa-user-edit"></i> Editar Cliente</h2>
 
         <div th:if="${editClient == null}">
             <form th:action="@{/client/edit/search}" method="get" class="search-form">
-                <div  class="search-container">
+                <div sec:authorize="hasRole('ADMIN')" class="search-container">
                     <input type="text" name="dpi" placeholder="DPI del cliente a editar" class="search-input" required>
-                    <button sec:authorize="hasRole('ADMIN')" type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
+                    <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
                 </div>
             </form>
         </div>
