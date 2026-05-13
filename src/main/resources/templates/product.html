@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Productos</title>
@@ -90,7 +90,7 @@
                         <span class="badge" th:classappend="${p.productState == 1} ? 'badge-active' : 'badge-inactive'" 
                               th:text="${p.productState == 1} ? 'Activo' : 'Inactivo'"></span>
                     </td>
-                    <td class="actions">
+                    <td class="actions" sec:authorize="hasRole('ADMIN')">
                         <form th:action="@{/product/delete/{code}(code=${p.productCode})}" method="post">
                             <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
                                 <i class="fas fa-trash"></i>
@@ -106,10 +106,10 @@
         </div>
     </section>
 
-    <section class="form-section">
+    <section class="form-section" sec:authorize="hasRole('ADMIN')">
         <h2 class="section-title"><i class="fas fa-edit"></i> Editar Producto</h2>
 
-        <form th:action="@{/product/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
+        <form  th:action="@{/product/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
             <div class="search-container">
                 <input type="text" name="code" placeholder="Ingrese código para editar" class="search-input" required>
                 <button type="submit" class="btn-search"><i class="fas fa-search"></i> Cargar Datos</button>

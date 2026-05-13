@@ -110,7 +110,7 @@
 
         <div th:if="${editClient == null}">
             <form th:action="@{/client/edit/search}" method="get" class="search-form">
-                <div sec:authorize="hasRole('ADMIN')" class="search-container">
+                <div class="search-container">
                     <input type="text" name="dpi" placeholder="DPI del cliente a editar" class="search-input" required>
                     <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
                 </div>
