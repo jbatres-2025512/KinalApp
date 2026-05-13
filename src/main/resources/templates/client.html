@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Clientes</title>
@@ -110,16 +110,16 @@
 
         <div th:if="${editClient == null}">
             <form th:action="@{/client/edit/search}" method="get" class="search-form">
-                <div class="search-container">
+                <div  class="search-container">
                     <input type="text" name="dpi" placeholder="DPI del cliente a editar" class="search-input" required>
-                    <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
+                    <button sec:authorize="hasRole('ADMIN')" type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
                 </div>
             </form>
         </div>
 
         <div th:if="${editClient != null}">
             <form th:action="@{/client/edit/{dpi}(dpi=${editClient.DPIClient})}" method="post" th:object="${editClient}" class="product-form">
-                <div class="form-row">
+                <div  class="form-row">
                     <div class="form-group">
                         <label>DPI</label>
                         <input type="text" th:field="*{DPIClient}" readonly class="input-readonly">
