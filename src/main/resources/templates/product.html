@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Productos</title>
+    <link rel="icon" href="../static/images/logoKinal.png" th:href="@{/images/logokinal.png}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/product.css}" href="../static/css/product.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <div class="nav-left">
+        <img th:src="@{/images/logokinal.png}" alt="Logo Kinal" class="nav-logo">
+        <h1 class="nav-title">KinalApp | <a th:href="@{/}">Home</a></h1>
+    </div>
+    <div class="nav-center">CRUD de Productos</div>
+    <div class="nav-right">
+        <form th:action="@{/logout}" method="post" class="btn-logout" >
+            <button type="submit" class="btn-logout-btn">
+                <i class="fas fa-sign-out-alt">Cerrar Sesión</i>
+            </button>
+        </form>
+    </div>
+</nav>
+
+<main>
+    <div th:if="${param.error}" class="alert-error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span th:text="${param.error[0]}">Error en la operación</span>
+    </div>
+
+    <section class="search-section">
+        <h2 class="section-title"><i class="fas fa-search"></i> Buscar Producto</h2>
+        <form th:action="@{/product/search}" method="get" class="search-form">
+            <div class="search-container">
+                <input type="text" name="code" placeholder="Ingrese código del producto" class="search-input">
+                <button type="submit" class="btn-search"><i class="fas fa-search"></i> Buscar</button>
+                <a th:href="@{/product}" class="btn-clear"><i class="fas fa-times"></i> Limpiar</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="form-section">
+        <h2 class="section-title"><i class="fas fa-box-open"></i> Nuevo Producto</h2>
+        <form th:action="@{/product/add}" method="post" th:object="${product}" class="product-form">
+            <input type="hidden" th:field="*{productState}" value="1">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" th:field="*{productName}" placeholder="Nombre del producto"
+                           minlength="3" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label>Precio *</label>
+                    <input type="number" step="0.01" th:field="*{price}" placeholder="0.00"
+                           min="0.01" max="99999.99" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock *</label>
+                    <input type="number" th:field="*{stock}" placeholder="0"
+                           min="0" max="10000" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-save"><i class="fas fa-plus"></i> Agregar</button>
+        </form>
+    </section>
+
+    <section class="table-section">
+        <h2 class="section-title"><i class="fas fa-boxes"></i> Lista de Productos</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${listProducts}">
+                    <td th:text="${p.productCode}"></td>
+                    <td th:text="${p.productName}"></td>
+                    <td th:text="'Q' + ${p.price}"></td>
+                    <td th:text="${p.stock}"></td>
+                    <td>
+                        <span class="badge" th:classappend="${p.productState == 1} ? 'badge-active' : 'badge-inactive'" 
+                              th:text="${p.productState == 1} ? 'Activo' : 'Inactivo'"></span>
+                    </td>
+                    <td class="actions" sec:authorize="hasRole('ADMIN')">
+                        <form th:action="@{/product/delete/{code}(code=${p.productCode})}" method="post">
+                            <button type="submit" class="btn-icon btn-delete" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(listProducts)}">
+                    <td colspan="6" class="empty-row">No hay productos registrados.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="form-section" sec:authorize="hasRole('ADMIN')">
+        <h2 class="section-title"><i class="fas fa-edit"></i> Editar Producto</h2>
+
+        <form  th:action="@{/product/edit/search}" method="get" class="search-form" style="margin-bottom: 20px;">
+            <div class="search-container">
+                <input type="text" name="code" placeholder="Ingrese código para editar" class="search-input" required>
+                <button type="submit" class="btn-search"><i class="fas fa-search"></i> Cargar Datos</button>
+            </div>
+        </form>
+
+        <div th:if="${editProduct != null}">
+            <form th:action="@{/product/edit/{code}(code=${editProduct.productCode})}"
+                  method="post"
+                  th:object="${editProduct}"
+                  class="product-form">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Código Producto</label>
+                        <input type="text" th:field="*{productCode}" readonly class="input-readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" th:field="*{productName}" minlength="3" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio *</label>
+                        <input type="number" step="0.01" th:field="*{price}" min="0.01" max="99999.99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Stock *</label>
+                        <input type="number" th:field="*{stock}" min="0" max="10000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select th:field="*{productState}">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a th:href="@{/product}" class="btn-cancel"><i class="fas fa-times"></i> Cancelar</a>
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+
+        <div th:unless="${editProduct != null}" style="text-align: center; color: #666; padding: 20px;">
+            <p><i class="fas fa-info-circle"></i> Busque un producto arriba para habilitar la edición.</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+package com.jhulianbatres.kinlapp.entity;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Products")
+public class Product {
+
+    @Id
+    @Column(name = "product_code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productCode;
+
+    @Column
+    private String productName;
+
+    @Column
+    private BigDecimal price;
+
+    @Column
+    private int stock;
+
+    @Column
+    private int productState;
+
+    @OneToMany(mappedBy = "productCode",cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    private List<SaleDetail> saleDetail;
+
+
+    public Product() {
+    }
+
+    public Long getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(Long productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getProductState() {
+        return productState;
+    }
+
+    public void setProductState(int productState) {
+        this.productState = productState;
+    }
+
+    public List<SaleDetail> getSaleDetail() {
+        return saleDetail;
+    }
+
+    public void setSaleDetail(List<SaleDetail> saleDetail) {
+        this.saleDetail = saleDetail;
+    }
+}

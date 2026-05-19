@@ -1,0 +1,85 @@
+body{
+    background-color: #2a3461;
+    font-family: 'Roboto Slab', serif;
+    color: #ffffff;
+}
+.register-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 40px;
+    background-color: #304d8b;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    color: white;
+    border: 2px solid #ffffff44;
+    border-radius: 8px;
+    background-color: #6275c7;
+    box-shadow: 0 0 10px rgba(61, 90, 153, 0.37);
+}
+
+.register-container button {
+    background-color: #d16236;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 6rem;
+    font-family: 'Roboto Slab', serif;
+    font-size: 15px;
+    size: 10rem;
+}
+.register-container button:hover {
+    background-color: #d8b82b;
+    transition: ease-in-out 0.3s;
+}
+.register-container .error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+.register-logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100px;
+}
+
+.register-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 17px;
+}
+.login-link {
+    color: #d16236;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    color: #d8b82b;
+    transition: ease-in-out 0.3s;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.541);
+    opacity: 1;
+}

@@ -1,0 +1,196 @@
+body {
+    background-color: #2a3461;
+    font-family: 'Roboto Slab', serif;
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+nav {
+    background-color: #304d8b;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.fa-sign-out-alt {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.fa-sign-out-alt:hover {
+    color: #ffd727;
+    cursor: pointer;
+}
+
+.text-left {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.nav-logo {
+    width: 35px;
+    height: auto;
+    margin-right: 12px;
+}
+
+.nav-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.nav-title a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-title a:hover {
+    color: #ffd727;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.card {
+    background-color: #6275c7;
+    border-radius: 20px;
+    padding: 30px 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 260px;
+    height: 300px;
+    flex-shrink: 0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    background-color: #6e82d6;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+}
+
+.card i {
+    font-size: 60px;
+    color: #d8b82b;
+}
+
+.card h3 {
+    margin: 15px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.btn-access {
+    background-color: #d16236;
+    color: white;
+    padding: 12px 1px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Roboto Slab', serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn-access-client{
+    background-color: #d16236;
+    color: white;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Roboto Slab', serif;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-access:hover {
+    background-color: #d8b82b;
+    color: #212b5a;
+}
+
+footer {
+    background-color: #1e264a;
+    padding: 15px;
+    text-align: center;
+    border-top: 2px solid #304d8b;
+}
+
+.footer-content {
+    font-size: 13px;
+    color: #b0b8d1;
+}
+
+@media (max-width: 900px) {
+    .nav-center {
+        display: none;
+    }
+    nav {
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid {
+        gap: 20px;
+    }
+    .card {
+        width: 100%;
+        max-width: 280px;
+    }
+}

@@ -1,0 +1,125 @@
+package com.jhulianbatres.kinlapp.service;
+
+import com.jhulianbatres.kinlapp.entity.Client;
+import com.jhulianbatres.kinlapp.entity.User;
+import com.jhulianbatres.kinlapp.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+
+@Transactional
+
+public class UserService implements IUserService{
+
+    private final UserRepository userRepository;
+
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> listAll(){
+        return userRepository.findAll();
+    }
+
+    @Override
+    public List<User> findByUserState(){
+
+        return userRepository.findAll().stream().filter(userState -> userState.getUserState() !=0).collect(Collectors.toList());
+
+    }
+
+
+    @Override
+    public User save(User user) {
+        validateUser(user);
+
+        if (user.getUserState() == 0)
+            user.setUserState(1);
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> findByUserCode(Long userCode) {
+        return userRepository.findById(userCode);
+    }
+
+    @Override
+    public User update(Long userCode, User user) {
+        if (!userRepository.existsById(userCode))
+            throw new RuntimeException("No se encontro ningun usuario con este codigo: " + userCode);
+
+        user.setUserCode(userCode);
+
+        validateUser(user);
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void delete(Long userCode) {
+        if (!userRepository.existsById(userCode))
+            throw new RuntimeException("No se encontro ningun usuario con este codigo: " + userCode);
+
+        userRepository.deleteById(userCode);
+    }
+
+    @Override
+    public User register(User user) {
+        user.setUserState(1);
+        if (user.getUserRol() == null || user.getUserRol().trim().isEmpty())
+            user.setUserRol("USER");
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    @Override
+    public User login(String userName, String userPassword) {
+        User user = userRepository.findByUserName(userName);
+        if (user == null) return null;
+
+        return userPassword.equals(user.getUserPassword()) ? user : null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existByUserCode(Long userCode) {
+        return userRepository.existsById(userCode);
+    }
+
+    private void validateUser(User user){
+
+        if (user.getUserName()==null || user.getUserName().trim().isEmpty()){
+            throw new IllegalArgumentException("El nombre es un dato obligatorio!");
+        }
+
+        if (user.getUserEmail()==null || user.getUserEmail().trim().isEmpty()){
+            throw new IllegalArgumentException("El correo no puede estar vacio!");
+        }
+
+        if (user.getUserPassword()==null || user.getUserPassword().trim().isEmpty()){
+            throw new IllegalArgumentException("La contraseña es un dato obligatorio!");
+        }
+
+        if (user.getUserRol()==null || user.getUserRol().trim().isEmpty()){
+            throw new IllegalArgumentException("El roll no puede estar vacio!");
+        }
+
+    }
+
+
+}
