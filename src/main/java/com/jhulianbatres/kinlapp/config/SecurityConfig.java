@@ -9,55 +9,61 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity  // Habilita @PreAuthorize en servicios y controllers
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeHttpRequests(auth -> auth
+        http
+                .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/css/**", "/images/**").permitAll()
+                        .requestMatchers("/css/**", "/images/**", "/js/**").permitAll()
                         .requestMatchers("/login", "/register").permitAll()
-                        .requestMatchers("/client/**", "/product/**", "/sale/**", "/saleDetail/**").authenticated()
+
+                        .requestMatchers(
+                                "/client/edit/**",
+                                         "/client/delete/**",
+                                         "/product/edit/**",
+                                         "/product/delete/**",
+                                         "/sale/edit/**",
+                                         "/sale/delete/**",
+                                         "/saleDetail/edit/**",
+                                         "/saleDetail/delete/**"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(
+                                "/client/**",
+                                "/product/**",
+                                "/sale/**",
+                                "/saleDetail/**"
+                        ).authenticated()
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/",true)
+                        .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
 
-                .logout(logout->logout
+                .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 );
 
-                return http.build();
-
+        return http.build();
     }
-
-
-
-    //Metodo para encryptar pero pidiendo que no lo haga
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
-
-
-
-
 }
